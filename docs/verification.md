@@ -70,10 +70,30 @@ Verified on 2026-10-30 with Node 24.16.0 and npm 11.13.0 in a new local Git clon
 | `npm run record` | Exit 1 before recording; no GIF produced |
 | GitHub installation | Exit 128, SSH host key verification failed; anonymous repository API returned HTTP 404 |
 
+## Round 4 recording retry
+
+Retried on 2026-10-30 with VHS 0.12.1, Node 24.16.0 and npm 11.13.0. Installation and CLI checks used a new local Git clone with an empty isolated npm cache and a separate global prefix.
+
+| Check | Observed result |
+| --- | --- |
+| `npm ci` | Exit 0 |
+| `npm test` | Exit 0; **79 tests, 79 passed, 0 failed, 0 cancelled, 0 skipped** |
+| `npm i -g .` | Exit 0; installed help and version work outside the clone |
+| Three examples, human and JSON output | Constant: one group of four, exit 1; OS only: two groups of two, exit 1; both axes: four distinct names, exit 0 |
+| Producer provenance and workflow hashes | All four producers retain job `build`, step 1, line 13, column 15; all three example hashes remain unchanged |
+| Quick-start workflow path, populated with the unique example | Exit 0 |
+| `npm run demo` | Exit 1; two shared-name groups |
+| `vhs validate docs/demo.tape` | Exit 0 |
+| `npm run record` | Exit 1; `could not start browser: browser exited unexpectedly before its debugging endpoint was ready`; no GIF produced |
+| Separate headless Chromium launch on `about:blank` | Terminated with signal 5; `bootstrap_check_in` reported `Permission denied (1100)` |
+| `npm i -g github:itzjk/artifact-clash` | Exit 128; GitHub SSH authentication failed with `Permission denied (publickey)` |
+
+The test summary is printed by the existing explicit spec reporter. Passing tests and validating the tape do not satisfy the demo requirement: `docs/demo.gif` is still absent, so the README GIF embed and the measured 10–25 second duration remain unverified. This retry does not close the delivery blocker.
+
 ## Outstanding delivery checks
 
 - `npm run record` cannot start the VHS browser in this environment: `browser exited unexpectedly before its debugging endpoint was ready`. A direct headless browser diagnostic terminates at macOS `bootstrap_check_in` with `Permission denied (1100)`. The tape is valid and contains the three real CLI runs, but `docs/demo.gif` has not been produced. The README retains terminal output without a broken image link. The required 10–25 second recorded GIF and its README embed remain outstanding.
-- The exact GitHub installation command exited 128 with SSH authentication denied. The anonymous repository API returned 404. A public GitHub installation cannot be certified until the repository is accessible. Local tarball installation succeeded independently.
+- The exact GitHub installation command exited 128 with SSH authentication denied, including the round 4 retry. The earlier anonymous repository API returned 404 and was not queried again in round 4. A public GitHub installation cannot be certified until the repository is accessible. Local installation succeeded independently.
 - A repository commit was attempted with the requested author identity. Git could not create `.git/index.lock` because this environment restricts writes to the Git metadata directory. No commits, pushes or publication were made.
 - The CI workflow exists and passes actionlint, but hosted CI has not been initiated. Its checkout and setup-node actions are fixed to the published v7.0.1 and v7.1.0 commit IDs, respectively; their manifests use Node 24.
 
