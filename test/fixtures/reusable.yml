@@ -1,0 +1,4 @@
+on: [push]
+jobs:
+  external:
+    uses: ./shared.yml

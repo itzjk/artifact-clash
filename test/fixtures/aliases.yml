@@ -1,0 +1,16 @@
+name: Artifact names
+on: [push]
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: &systems [ubuntu-latest, windows-latest]
+        node: *systems
+    steps:
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bundle-${{ matrix.os }}
+          path: dist/

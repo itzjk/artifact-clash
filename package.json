@@ -1,0 +1,19 @@
+{
+  "name": "artifact-clash",
+  "version": "0.1.0",
+  "description": "Preview GitHub Actions artifact names across matrix combinations and locate shared producers.",
+  "type": "module",
+  "bin": { "artifact-clash": "bin/artifact-clash.js" },
+  "files": ["bin", "src", "README.md", "LICENSE", "examples", "docs/report-v1.md"],
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "test": "node --test",
+    "demo": "node bin/artifact-clash.js check examples/os-only.yml",
+    "record": "vhs docs/demo.tape"
+  },
+  "keywords": ["github-actions", "artifacts", "matrix", "continuous-integration", "yaml", "developer-tools", "cli", "static-analysis"],
+  "license": "MIT",
+  "repository": { "type": "git", "url": "https://github.com/itzjk/artifact-clash" },
+  "bugs": { "url": "https://github.com/itzjk/artifact-clash/issues" },
+  "dependencies": { "yaml": "2.9.0" }
+}

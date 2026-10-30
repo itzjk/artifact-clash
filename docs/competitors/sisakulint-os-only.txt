@@ -1,0 +1,10 @@
+examples/os-only.yml:1:1: dependabot.yaml does not exist. Without Dependabot, major version updates (e.g., v3 -> v4) for GitHub Actions won't be automated. Create .github/dependabot.yaml with github-actions ecosystem. See https://sisaku-security.github.io/lint/docs/rules/dependabotgithubactionsrule/ [dependabot-github-actions]
+      1 👈|name: Artifact names
+       
+examples/os-only.yml:13:9: the action ref in 'uses' for step '<unnamed>' should be a full length commit SHA for immutability and security. See https://sisaku-security.github.io/lint/docs/rules/commitsharule/ [commit-sha]
+       13 👈|      - uses: actions/upload-artifact@v4
+               
+examples/os-only.yml:13:15: action 'actions/upload-artifact@v4' runs on the deprecated Node.js runtime 'node20' (EOL since 2026-04-30 and scheduled for removal from the runner on 2026-09-16). Update to actions/upload-artifact@v6 or later, which runs on node24. See https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/ [deprecated-node-runtime]
+       13 👈|      - uses: actions/upload-artifact@v4
+                     
+sisakulint: no GitHub token detected; GitHub API checks (known-vulnerable-actions, commit-sha autofix) limited to 60 req/h. Set GITHUB_TOKEN, GH_TOKEN, SISAKULINT_GITHUB_TOKEN, or pass -github-token to lift the limit.

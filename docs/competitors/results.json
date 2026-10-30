@@ -1,0 +1,91 @@
+{
+  "date": "2026-10-30",
+  "runs": [
+    {
+      "tool": "actionlint",
+      "command": "actionlint -color -shellcheck= -pyflakes= examples/constant.yml",
+      "fixture": "examples/constant.yml",
+      "sha256": "39b0ebdc6b5d0319c6518ee736825bb79b08ffd8e1009c50292d37c34b2ff845",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "tool": "actionlint",
+      "command": "actionlint -color -shellcheck= -pyflakes= examples/os-only.yml",
+      "fixture": "examples/os-only.yml",
+      "sha256": "335b3b15d03bd27d3a3fb2cf71d867acb01e49f6315beb8d63a61a24ab149f7a",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "tool": "actionlint",
+      "command": "actionlint -color -shellcheck= -pyflakes= examples/unique.yml",
+      "fixture": "examples/unique.yml",
+      "sha256": "e8736fe99256a2839b85c0549d176c6781abf99306fbf2788a01bf2149c4e629",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "tool": "zizmor",
+      "command": "zizmor --offline --format plain examples/constant.yml",
+      "fixture": "examples/constant.yml",
+      "sha256": "39b0ebdc6b5d0319c6518ee736825bb79b08ffd8e1009c50292d37c34b2ff845",
+      "exitCode": 14,
+      "stdout": "error[unpinned-uses]: unpinned action reference\n  --> examples/constant.yml:13:15\n   |\n13 |       - uses: actions/upload-artifact@v4\n   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^ action is not pinned to a hash (required by blanket policy)\n   |\n   = note: audit confidence \u2192 High\n   = help: audit documentation \u2192 https://docs.zizmor.sh/audits/#unpinned-uses\n\n3 findings (2 suppressed): 0 informational, 0 low, 0 medium, 1 high\n",
+      "stderr": " INFO zizmor: \ud83c\udf08 zizmor v1.31.1\n INFO audit: zizmor: \ud83c\udf08 completed examples/constant.yml\n"
+    },
+    {
+      "tool": "zizmor",
+      "command": "zizmor --offline --format plain examples/os-only.yml",
+      "fixture": "examples/os-only.yml",
+      "sha256": "335b3b15d03bd27d3a3fb2cf71d867acb01e49f6315beb8d63a61a24ab149f7a",
+      "exitCode": 14,
+      "stdout": "error[unpinned-uses]: unpinned action reference\n  --> examples/os-only.yml:13:15\n   |\n13 |       - uses: actions/upload-artifact@v4\n   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^ action is not pinned to a hash (required by blanket policy)\n   |\n   = note: audit confidence \u2192 High\n   = help: audit documentation \u2192 https://docs.zizmor.sh/audits/#unpinned-uses\n\n3 findings (2 suppressed): 0 informational, 0 low, 0 medium, 1 high\n",
+      "stderr": " INFO zizmor: \ud83c\udf08 zizmor v1.31.1\n INFO audit: zizmor: \ud83c\udf08 completed examples/os-only.yml\n"
+    },
+    {
+      "tool": "zizmor",
+      "command": "zizmor --offline --format plain examples/unique.yml",
+      "fixture": "examples/unique.yml",
+      "sha256": "e8736fe99256a2839b85c0549d176c6781abf99306fbf2788a01bf2149c4e629",
+      "exitCode": 14,
+      "stdout": "error[unpinned-uses]: unpinned action reference\n  --> examples/unique.yml:13:15\n   |\n13 |       - uses: actions/upload-artifact@v4\n   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^ action is not pinned to a hash (required by blanket policy)\n   |\n   = note: audit confidence \u2192 High\n   = help: audit documentation \u2192 https://docs.zizmor.sh/audits/#unpinned-uses\n\n3 findings (2 suppressed): 0 informational, 0 low, 0 medium, 1 high\n",
+      "stderr": " INFO zizmor: \ud83c\udf08 zizmor v1.31.1\n INFO audit: zizmor: \ud83c\udf08 completed examples/unique.yml\n"
+    },
+    {
+      "tool": "sisakulint",
+      "command": "sisakulint examples/constant.yml",
+      "fixture": "examples/constant.yml",
+      "sha256": "39b0ebdc6b5d0319c6518ee736825bb79b08ffd8e1009c50292d37c34b2ff845",
+      "exitCode": 1,
+      "stdout": "examples/constant.yml:1:1: dependabot.yaml does not exist. Without Dependabot, major version updates (e.g., v3 -> v4) for GitHub Actions won't be automated. Create .github/dependabot.yaml with github-actions ecosystem. See https://sisaku-security.github.io/lint/docs/rules/dependabotgithubactionsrule/ [dependabot-github-actions]\n      1 \ud83d\udc48|name: Artifact names\n       \nexamples/constant.yml:13:9: the action ref in 'uses' for step '<unnamed>' should be a full length commit SHA for immutability and security. See https://sisaku-security.github.io/lint/docs/rules/commitsharule/ [commit-sha]\n       13 \ud83d\udc48|      - uses: actions/upload-artifact@v4\n               \nexamples/constant.yml:13:15: action 'actions/upload-artifact@v4' runs on the deprecated Node.js runtime 'node20' (EOL since 2026-04-30 and scheduled for removal from the runner on 2026-09-16). Update to actions/upload-artifact@v6 or later, which runs on node24. See https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/ [deprecated-node-runtime]\n       13 \ud83d\udc48|      - uses: actions/upload-artifact@v4\n                     \n",
+      "stderr": "sisakulint: no GitHub token detected; GitHub API checks (known-vulnerable-actions, commit-sha autofix) limited to 60 req/h. Set GITHUB_TOKEN, GH_TOKEN, SISAKULINT_GITHUB_TOKEN, or pass -github-token to lift the limit.\n"
+    },
+    {
+      "tool": "sisakulint",
+      "command": "sisakulint examples/os-only.yml",
+      "fixture": "examples/os-only.yml",
+      "sha256": "335b3b15d03bd27d3a3fb2cf71d867acb01e49f6315beb8d63a61a24ab149f7a",
+      "exitCode": 1,
+      "stdout": "examples/os-only.yml:1:1: dependabot.yaml does not exist. Without Dependabot, major version updates (e.g., v3 -> v4) for GitHub Actions won't be automated. Create .github/dependabot.yaml with github-actions ecosystem. See https://sisaku-security.github.io/lint/docs/rules/dependabotgithubactionsrule/ [dependabot-github-actions]\n      1 \ud83d\udc48|name: Artifact names\n       \nexamples/os-only.yml:13:9: the action ref in 'uses' for step '<unnamed>' should be a full length commit SHA for immutability and security. See https://sisaku-security.github.io/lint/docs/rules/commitsharule/ [commit-sha]\n       13 \ud83d\udc48|      - uses: actions/upload-artifact@v4\n               \nexamples/os-only.yml:13:15: action 'actions/upload-artifact@v4' runs on the deprecated Node.js runtime 'node20' (EOL since 2026-04-30 and scheduled for removal from the runner on 2026-09-16). Update to actions/upload-artifact@v6 or later, which runs on node24. See https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/ [deprecated-node-runtime]\n       13 \ud83d\udc48|      - uses: actions/upload-artifact@v4\n                     \n",
+      "stderr": "sisakulint: no GitHub token detected; GitHub API checks (known-vulnerable-actions, commit-sha autofix) limited to 60 req/h. Set GITHUB_TOKEN, GH_TOKEN, SISAKULINT_GITHUB_TOKEN, or pass -github-token to lift the limit.\n"
+    },
+    {
+      "tool": "sisakulint",
+      "command": "sisakulint examples/unique.yml",
+      "fixture": "examples/unique.yml",
+      "sha256": "e8736fe99256a2839b85c0549d176c6781abf99306fbf2788a01bf2149c4e629",
+      "exitCode": 1,
+      "stdout": "examples/unique.yml:1:1: dependabot.yaml does not exist. Without Dependabot, major version updates (e.g., v3 -> v4) for GitHub Actions won't be automated. Create .github/dependabot.yaml with github-actions ecosystem. See https://sisaku-security.github.io/lint/docs/rules/dependabotgithubactionsrule/ [dependabot-github-actions]\n      1 \ud83d\udc48|name: Artifact names\n       \nexamples/unique.yml:13:9: the action ref in 'uses' for step '<unnamed>' should be a full length commit SHA for immutability and security. See https://sisaku-security.github.io/lint/docs/rules/commitsharule/ [commit-sha]\n       13 \ud83d\udc48|      - uses: actions/upload-artifact@v4\n               \nexamples/unique.yml:13:15: action 'actions/upload-artifact@v4' runs on the deprecated Node.js runtime 'node20' (EOL since 2026-04-30 and scheduled for removal from the runner on 2026-09-16). Update to actions/upload-artifact@v6 or later, which runs on node24. See https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/ [deprecated-node-runtime]\n       13 \ud83d\udc48|      - uses: actions/upload-artifact@v4\n                     \n",
+      "stderr": "sisakulint: no GitHub token detected; GitHub API checks (known-vulnerable-actions, commit-sha autofix) limited to 60 req/h. Set GITHUB_TOKEN, GH_TOKEN, SISAKULINT_GITHUB_TOKEN, or pass -github-token to lift the limit.\n"
+    }
+  ],
+  "versions": {
+    "actionlint": "1.7.12",
+    "zizmor": "1.31.1",
+    "sisakulint": "0.3.8"
+  }
+}

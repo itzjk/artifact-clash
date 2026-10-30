@@ -1,0 +1,108 @@
+{
+  "constant": {
+    "names": [
+      "bundle",
+      "bundle",
+      "bundle",
+      "bundle"
+    ],
+    "matrix": [
+      {
+        "os": "ubuntu-latest",
+        "node": "20"
+      },
+      {
+        "os": "ubuntu-latest",
+        "node": "22"
+      },
+      {
+        "os": "windows-latest",
+        "node": "20"
+      },
+      {
+        "os": "windows-latest",
+        "node": "22"
+      }
+    ],
+    "groups": [
+      {
+        "name": "bundle",
+        "matrixIndices": [
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ]
+  },
+  "os-only": {
+    "names": [
+      "bundle-ubuntu-latest",
+      "bundle-ubuntu-latest",
+      "bundle-windows-latest",
+      "bundle-windows-latest"
+    ],
+    "matrix": [
+      {
+        "os": "ubuntu-latest",
+        "node": "20"
+      },
+      {
+        "os": "ubuntu-latest",
+        "node": "22"
+      },
+      {
+        "os": "windows-latest",
+        "node": "20"
+      },
+      {
+        "os": "windows-latest",
+        "node": "22"
+      }
+    ],
+    "groups": [
+      {
+        "name": "bundle-ubuntu-latest",
+        "matrixIndices": [
+          1,
+          2
+        ]
+      },
+      {
+        "name": "bundle-windows-latest",
+        "matrixIndices": [
+          3,
+          4
+        ]
+      }
+    ]
+  },
+  "unique": {
+    "names": [
+      "bundle-ubuntu-latest-20",
+      "bundle-ubuntu-latest-22",
+      "bundle-windows-latest-20",
+      "bundle-windows-latest-22"
+    ],
+    "matrix": [
+      {
+        "os": "ubuntu-latest",
+        "node": "20"
+      },
+      {
+        "os": "ubuntu-latest",
+        "node": "22"
+      },
+      {
+        "os": "windows-latest",
+        "node": "20"
+      },
+      {
+        "os": "windows-latest",
+        "node": "22"
+      }
+    ],
+    "groups": []
+  }
+}
