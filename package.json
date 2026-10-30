@@ -7,7 +7,7 @@
   "files": ["bin", "src", "README.md", "LICENSE", "examples", "docs/report-v1.md"],
   "engines": { "node": ">=22" },
   "scripts": {
-    "test": "node --test",
+    "test": "node --test --test-reporter=spec",
     "demo": "node bin/artifact-clash.js check examples/os-only.yml",
     "record": "vhs docs/demo.tape"
   },

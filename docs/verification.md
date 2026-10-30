@@ -34,7 +34,7 @@ The full suite additionally exercises malformed YAML, duplicate keys, recursive 
 
 ## README local-install follow-up
 
-The README now documents `npm ci && npm i -g .` from the root of an existing clone, followed by `artifact-clash check examples/os-only.yml`. The GitHub quick start remains available.
+The README documents `npm ci && npm i -g .` as a local installation note under Contributing. The GitHub quick start remains available.
 
 Verified on 2026-10-30 in a fresh local Git clone with no `node_modules`, an empty isolated npm cache and an isolated global prefix, using Node 24.16.0 and npm 11.13.0:
 
@@ -50,9 +50,29 @@ Verified on 2026-10-30 in a fresh local Git clone with no `node_modules`, an emp
 | Example workflow SHA-256 hashes | Unchanged after all checks |
 | GitHub installation command, retried separately | Exit 128; SSH host key verification failed, so remote installation remains unverified |
 
+## Round 3 follow-up
+
+Verified on 2026-10-30 with Node 24.16.0 and npm 11.13.0 in a new local Git clone. The current README and package manifest were copied into that clone before installation; its npm cache and global prefix were isolated.
+
+| Check | Observed result |
+| --- | --- |
+| `npm ci` | Exit 0; zero vulnerabilities |
+| `npm test` with the explicit spec reporter | Exit 0; 79 tests, 79 passed, zero failed, zero cancelled, zero skipped |
+| `npm i -g .` | Exit 0; installed executable works outside the clone |
+| Three examples, human and JSON output | Constant: one group of four, exit 1; OS only: two groups of two, exit 1; both axes: four distinct names, exit 0 |
+| Group members and provenance | Names, ordered matrix values and member indices match `test/reference.json`; all grouped producers retain job `build`, step 1, line 13, column 15 |
+| Installed help, version and quick-start workflow path | Exit 0; version 0.1.0; four distinct names at the quick-start path |
+| `npm run demo` | Exit 1; two shared-name groups |
+| Example workflow SHA-256 hashes | Unchanged after checks |
+| Independent reviewer, separate clean clone | 79 tests passed; local installation, external CLI invocation, exact example members and source locations, unchanged hashes, help and version confirmed |
+| README | 712 whitespace-delimited words; installation and usage remain two separate quick-start blocks; the explanatory exit-code sentence was removed |
+| `vhs validate docs/demo.tape` | Exit 0 |
+| `npm run record` | Exit 1 before recording; no GIF produced |
+| GitHub installation | Exit 128, SSH host key verification failed; anonymous repository API returned HTTP 404 |
+
 ## Outstanding delivery checks
 
-- `npm run record` cannot start the VHS browser in this environment: `browser exited unexpectedly before its debugging endpoint was ready`. The tape is valid and contains the three real CLI runs, but `docs/demo.gif` has not been produced. The README currently displays terminal output. The required recorded GIF remains outstanding.
+- `npm run record` cannot start the VHS browser in this environment: `browser exited unexpectedly before its debugging endpoint was ready`. A direct headless browser diagnostic terminates at macOS `bootstrap_check_in` with `Permission denied (1100)`. The tape is valid and contains the three real CLI runs, but `docs/demo.gif` has not been produced. The README retains terminal output without a broken image link. The required 10–25 second recorded GIF and its README embed remain outstanding.
 - The exact GitHub installation command exited 128 with SSH authentication denied. The anonymous repository API returned 404. A public GitHub installation cannot be certified until the repository is accessible. Local tarball installation succeeded independently.
 - A repository commit was attempted with the requested author identity. Git could not create `.git/index.lock` because this environment restricts writes to the Git metadata directory. No commits, pushes or publication were made.
 - The CI workflow exists and passes actionlint, but hosted CI has not been initiated. Its checkout and setup-node actions are fixed to the published v7.0.1 and v7.1.0 commit IDs, respectively; their manifests use Node 24.

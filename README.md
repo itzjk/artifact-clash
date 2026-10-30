@@ -31,8 +31,6 @@ Check one local workflow:
 artifact-clash check .github/workflows/build.yml
 ```
 
-From an existing clone, run `npm ci && npm i -g .` in the repository root to install the same `artifact-clash` command. Try the included example with `artifact-clash check examples/os-only.yml`; exit code 1 means it found the two shared-name groups.
-
 ## Features
 
 - Preview every supported upload with its resolved name and matrix values.
@@ -81,6 +79,8 @@ Exit **0** means no shared names in the complete supported subset, including an 
 ## Contributing
 
 From a clone with Node.js 22+ and Python 3, run `npm ci` then `npm test`; include a fixture with exact expected producers when changing analysis behavior.
+
+Local installation: `npm ci && npm i -g .`. Record the three examples with `npm run record` (requires VHS).
 
 ## License
 
