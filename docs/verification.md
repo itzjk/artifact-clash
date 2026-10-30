@@ -32,6 +32,24 @@ Three isolated source mutations were tested against six selected integration cas
 
 The full suite additionally exercises malformed YAML, duplicate keys, recursive aliases, merge keys, unverified versions, dynamic matrices, include/exclude, missing axes, unknown contexts/functions, explicit conditions, empty names, overwrite, archive mode, byte/node/depth caps and combination/cell/string expansion caps. Fixtures and the independent Python calculation are stored under `test/`.
 
+## README local-install follow-up
+
+The README now documents `npm ci && npm i -g .` from the root of an existing clone, followed by `artifact-clash check examples/os-only.yml`. The GitHub quick start remains available.
+
+Verified on 2026-10-30 in a fresh local Git clone with no `node_modules`, an empty isolated npm cache and an isolated global prefix, using Node 24.16.0 and npm 11.13.0:
+
+| Check | Observed result |
+| --- | --- |
+| `npm ci && npm i -g .` | Exit 0; the installed command resolves inside the isolated prefix |
+| `artifact-clash check examples/os-only.yml` | Exit 1; four producers, two groups of two with both Node versions visible |
+| Installed command from outside the clone, JSON output | Same two groups and all four producers |
+| Installed help, version and unique example | Exit 0; version 0.1.0 and four distinct example names |
+| Constant example, JSON output | Exit 1; one group containing all four producers |
+| Quick-start workflow path populated with the unique example | Exit 0; four distinct names |
+| `npm ci` followed by `npm test` | Exit 0; 79 passed, zero failed, zero skipped |
+| Example workflow SHA-256 hashes | Unchanged after all checks |
+| GitHub installation command, retried separately | Exit 128; SSH host key verification failed, so remote installation remains unverified |
+
 ## Outstanding delivery checks
 
 - `npm run record` cannot start the VHS browser in this environment: `browser exited unexpectedly before its debugging endpoint was ready`. The tape is valid and contains the three real CLI runs, but `docs/demo.gif` has not been produced. The README currently displays terminal output. The required recorded GIF remains outstanding.

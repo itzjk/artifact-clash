@@ -31,6 +31,8 @@ Check one local workflow:
 artifact-clash check .github/workflows/build.yml
 ```
 
+From an existing clone, run `npm ci && npm i -g .` in the repository root to install the same `artifact-clash` command. Try the included example with `artifact-clash check examples/os-only.yml`; exit code 1 means it found the two shared-name groups.
+
 ## Features
 
 - Preview every supported upload with its resolved name and matrix values.
