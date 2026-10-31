@@ -12,4 +12,6 @@ On 2026-10-30, before implementation, the three workflows in `examples/` were ru
 
 None of these runs printed expanded artifact names, shared-name groups or their matrix producers. This is a comparison of these versions and defaults on three fixtures, not a claim that no other tool or configuration can solve the problem. They remain useful complementary syntax and security checks.
 
+The same nine commands were rerun with these versions on 2026-10-31. Exit codes and findings were unchanged, and none printed shared-name groups or matrix producers. [The recheck capture](recheck-2026-10-31.json) includes commands, output and unchanged fixture hashes.
+
 The official [v4 definition](https://github.com/actions/upload-artifact/blob/v4/action.yml) and [v7 definition](https://github.com/actions/upload-artifact/blob/v7/action.yml) were read on the same date. Both default to `artifact`; v7 with `archive: false` ignores `name` and needs file knowledge, so it is outside this analyzer's supported subset.

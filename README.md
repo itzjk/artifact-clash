@@ -5,17 +5,7 @@ See which GitHub Actions matrix combinations would upload the same artifact name
 [![CI](https://github.com/itzjk/artifact-clash/actions/workflows/ci.yml/badge.svg)](https://github.com/itzjk/artifact-clash/actions/workflows/ci.yml)
 [![MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-```text
-artifact-clash: "examples/os-only.yml"
-
-NAME | JOB | STEP | LINE:COL | MATRIX | OVERWRITE
-"bundle-ubuntu-latest" | "build" | 1 | 13:15 | os="ubuntu-latest", node="20" | false
-"bundle-ubuntu-latest" | "build" | 1 | 13:15 | os="ubuntu-latest", node="22" | false
-"bundle-windows-latest" | "build" | 1 | 13:15 | os="windows-latest", node="20" | false
-"bundle-windows-latest" | "build" | 1 | 13:15 | os="windows-latest", node="22" | false
-
-2 shared-name group(s)
-```
+![Three matrix naming choices: one shared group, two shared groups, then four distinct names](docs/demo.gif)
 
 ## Quick start
 
@@ -41,7 +31,7 @@ artifact-clash check .github/workflows/build.yml
 
 ## Why
 
-The closed [upload-artifact issue #478](https://github.com/actions/upload-artifact/issues/478) documents a v4 migration that hit `409 Conflict` when jobs shared an artifact name. The [official guidance](https://github.com/actions/upload-artifact#not-uploading-to-the-same-artifact) recommends incorporating matrix dimensions, but adding only the operating system still leaves matching names when Node versions vary. Artifact-clash shows the combinations left behind by that partial fix; it complements actionlint and zizmor, whose [baseline runs](docs/competitors/README.md) did not print these groups.
+The closed [upload-artifact issue #478](https://github.com/actions/upload-artifact/issues/478), with 67 thumbs-up recorded on October 30, 2026, documents a v4 migration that hit `409 Conflict` when jobs shared an artifact name. The [official guidance](https://github.com/actions/upload-artifact#not-uploading-to-the-same-artifact) recommends incorporating matrix dimensions, but adding only the operating system still leaves matching names when Node versions vary. Artifact-clash shows the combinations left behind by that partial fix; it complements actionlint and zizmor, whose [baseline runs](docs/competitors/README.md) did not print these groups.
 
 ## How it works
 

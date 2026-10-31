@@ -90,11 +90,36 @@ Retried on 2026-10-30 with VHS 0.12.1, Node 24.16.0 and npm 11.13.0. Installatio
 
 The test summary is printed by the existing explicit spec reporter. Passing tests and validating the tape do not satisfy the demo requirement: `docs/demo.gif` is still absent, so the README GIF embed and the measured 10–25 second duration remain unverified. This retry does not close the delivery blocker.
 
+## Delivery completion, 2026-10-31
+
+The CLI implementation was retained. The recording now waits for complete output before showing the first frame, displays all three naming choices, and requires only Node from the clone. The README embeds the resulting GIF and contains 668 whitespace-delimited words.
+
+| Check | Observed result |
+| --- | --- |
+| Fresh local Git clone, isolated npm cache, `npm ci` | Exit 0; zero vulnerabilities |
+| Fresh clone, `npm test`, Node 24.16.0 and npm 11.13.0 | Exit 0; 79 passed, zero failed or skipped |
+| Prefix-isolated `npm i -g .` | Exit 0; installed CLI works outside the clone |
+| Three examples, human and JSON output | Constant: one group of four, exit 1; OS only: two groups of two, exit 1; both axes: four distinct names, exit 0 |
+| Exact group membership and provenance | Ordered combinations match the Python reference; every producer retains job `build`, step 1, line 13, column 15 |
+| Workflow hashes, installed help/version, quick-start path | Hashes unchanged; help/version and populated quick-start path return exit 0 |
+| `npm run demo` from fresh clone | Exit 1; two shared-name groups |
+| Independent reviewer, separate clean source copy | 79 tests passed; local and packed installation, exact example members and locations, boundary probes and unchanged hashes confirmed |
+| Nine competitor commands, same released versions | Same exit codes and findings; no expanded shared-name groups or matrix producers; captures in `competitors/recheck-2026-10-31.json` |
+| CI configuration and tape validation | Actionlint and `vhs validate docs/demo.tape` return exit 0 |
+| Fresh clone, `npm run record` with local VHS build | Exit 0; GIF generated from the real CLI |
+| `ffprobe` on final GIF | 17.24 seconds, 1240 × 600 pixels, 431 frames, 441,772 bytes |
+| GIF frames at 0, 8 and 16 seconds | Complete constant, OS-only and unique results; all producers and group members visible without clipping |
+| Public text scan and `git diff --check` | Passed |
+| Exact `npm i -g github:itzjk/artifact-clash` retry | Exit 128; SSH authentication denied |
+
+The system VHS invocation still failed to launch its default browser. Recording succeeded by selecting Chromium Headless Shell with an existing local VHS build that changes browser selection and process flags. Capture and encoding remain VHS; no output substitution or post-recording retiming was used. This environment-specific build is not part of the package. On a host where VHS starts its browser normally, use `npm ci` followed by `npm run record`.
+
+Both default artifact names were reconfirmed against the official v4 and v7 action definitions on this date. The dated issue reaction count in the README is historical evidence of the upload problem, not a demand measurement for this CLI.
+
 ## Outstanding delivery checks
 
-- `npm run record` cannot start the VHS browser in this environment: `browser exited unexpectedly before its debugging endpoint was ready`. A direct headless browser diagnostic terminates at macOS `bootstrap_check_in` with `Permission denied (1100)`. The tape is valid and contains the three real CLI runs, but `docs/demo.gif` has not been produced. The README retains terminal output without a broken image link. The required 10–25 second recorded GIF and its README embed remain outstanding.
-- The exact GitHub installation command exited 128 with SSH authentication denied, including the round 4 retry. The earlier anonymous repository API returned 404 and was not queried again in round 4. A public GitHub installation cannot be certified until the repository is accessible. Local installation succeeded independently.
-- A repository commit was attempted with the requested author identity. Git could not create `.git/index.lock` because this environment restricts writes to the Git metadata directory. No commits, pushes or publication were made.
-- The CI workflow exists and passes actionlint, but hosted CI has not been initiated. Its checkout and setup-node actions are fixed to the published v7.0.1 and v7.1.0 commit IDs, respectively; their manifests use Node 24.
+- Public GitHub installation remains unverified: the exact command returned SSH `Permission denied (publickey)`. Local source and packaged installations pass.
+- Hosted CI has not been initiated. The checked-in workflow passes actionlint locally.
+- Git metadata is read-only in this environment. The current changes remain in the working tree; no commits, pushes or publication were made.
 
-Next: record the tape in an environment where VHS can launch its browser, embed the generated GIF, then repeat installation and hosted checks after the owner makes the repository public. The local analyzer handles both existing and newly written workflow files within the same documented subset.
+Next: commit the reviewed files in a writable checkout, then verify GitHub installation and hosted CI after the owner makes the repository accessible. The local analyzer handles both existing and newly written workflow files within the same documented subset.

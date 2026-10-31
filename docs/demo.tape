@@ -1,30 +1,35 @@
 Output docs/demo.gif
+Require node
 Set Shell "bash"
-Set FontSize 17
-Set Width 1200
-Set Height 820
+Set FontSize 16
+Set Width 1240
+Set Height 600
 Set Padding 18
+Set Framerate 5
 Set Theme "Catppuccin Mocha"
 Set TypingSpeed 12ms
 Hide
-Type "alias artifact-clash='node bin/artifact-clash.js'; export PS1='$ '; clear"
+Type "export PS1='$ '; clear"
 Enter
 Sleep 500ms
-Show
-Type "artifact-clash check examples/constant.yml"
+Type "node bin/artifact-clash.js check examples/constant.yml"
 Enter
-Sleep 4s
+Wait+Screen@30s /Comparison: exact names; direct upload steps only./
+Show
+Sleep 6s
 Hide
 Type "clear"
 Enter
 Show
-Type "artifact-clash check examples/os-only.yml"
+Type "node bin/artifact-clash.js check examples/os-only.yml"
 Enter
+Wait+Screen@30s /Comparison: exact names; direct upload steps only./
 Sleep 5s
 Hide
 Type "clear"
 Enter
 Show
-Type "artifact-clash check examples/unique.yml"
+Type "node bin/artifact-clash.js check examples/unique.yml"
 Enter
+Wait+Screen@30s /No shared names in the supported subset./
 Sleep 5s
