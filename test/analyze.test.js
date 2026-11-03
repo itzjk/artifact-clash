@@ -3,8 +3,11 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { analyze, LIMITS } from '../src/analyze.js';
 
-const base = readFileSync(new URL('./fixtures/os-only.yml', import.meta.url), 'utf8');
-const twoJobs = readFileSync(new URL('./fixtures/two-jobs.yml', import.meta.url), 'utf8');
+// Normalize to LF so the "\n"-based string replacements below match regardless of how the
+// fixtures were checked out (a CRLF working copy on Windows would otherwise make them no-op).
+const readLF = url => readFileSync(url, 'utf8').replace(/\r\n/g, '\n');
+const base = readLF(new URL('./fixtures/os-only.yml', import.meta.url));
+const twoJobs = readLF(new URL('./fixtures/two-jobs.yml', import.meta.url));
 const code = (source, expected) => {
   const r = analyze(source);
   assert.equal(r.exitCode, 2);
